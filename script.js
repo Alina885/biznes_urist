@@ -99,8 +99,6 @@ function calculate() {
                 totalPrincipal += principalPayment;
             }
         }
-
-        // Display the results without hiding the form
         document.getElementById('monthlyPaymentResult').innerText = (totalPaid / loanTerm).toFixed(2);
         document.getElementById('totalInterestResult').innerText = totalInterest.toFixed(2);
         document.getElementById('totalDebtWithInterestResult').innerText = (loanAmount + totalInterest).toFixed(2);
@@ -110,7 +108,6 @@ function calculate() {
     }
 
     if (calcType === 'loanTerm') {
-        // Расчет срока кредита на основе суммы и ежемесячного платежа
         let months = 0;
         let remainingBalance = loanAmount;
         let schedule = [];
@@ -139,8 +136,6 @@ function calculate() {
         document.getElementById('loanYears').innerText = loanYears;
         document.getElementById('loanMonths').innerText = loanMonths;
         document.getElementById('loanDuration').style.display = 'block';
-
-        // Display the total interest and debt without hiding the form
         document.getElementById('totalInterestResult').innerText = totalInterest.toFixed(2);
         document.getElementById('totalDebtWithInterestResult').innerText = (loanAmount + totalInterest).toFixed(2);
         document.getElementById('summaryContainer').style.display = 'block';
@@ -178,8 +173,6 @@ function calculate() {
             totalInterest += interestPayment;
             totalPrincipal += principalPayment;
         }
-
-        // Display the monthly payment and total debt without hiding the form
         document.getElementById('monthlyPaymentResult').innerText = monthlyPayment.toFixed(2);
         document.getElementById('totalInterestResult').innerText = totalInterest.toFixed(2);
         document.getElementById('totalDebtWithInterestResult').innerText = (maxLoanAmount + totalInterest).toFixed(2);
@@ -226,7 +219,7 @@ function renderChart(schedule) {
         loanChart.destroy();
     }
 
-    const labels = schedule.map(row => row.date); // Используем даты в качестве меток
+    const labels = schedule.map(row => row.date);
     const principalData = schedule.map(row => row.principalPayment);
     const interestData = schedule.map(row => row.interestPayment);
     const totalPayments = schedule.map(row => row.totalPayment);
@@ -254,20 +247,19 @@ function renderChart(schedule) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    stacked: true // Включаем режим стеков
+                    stacked: true
                 },
                 x: {
-                    stacked: true // Включаем режим стеков
+                    stacked: true
                 }
             },
             plugins: {
                 tooltip: {
                     callbacks: {
                         title: function (tooltipItems) {
-                            return tooltipItems[0].label; // Дата платежа
+                            return tooltipItems[0].label;
                         },
                         beforeLabel: function (tooltipItem) {
-                            // Всегда показываем ежемесячный платеж
                             return `Ежемесячный платеж: ${totalPayments[tooltipItem.dataIndex].toFixed(2)} ₽`;
                         },
                         label: function (tooltipItem) {
@@ -296,16 +288,9 @@ function renderChart(schedule) {
 }
 
 function exportToExcel() {
-    // Получаем таблицу для экспорта
     const table = document.getElementById('scheduleTable');
-
-    // Преобразуем таблицу в формат книги Excel с помощью SheetJS
     const workbook = XLSX.utils.table_to_book(table, {sheet: "Расчет платежей"});
-
-    // Делаем активный лист для стилизации
     const sheet = workbook.Sheets["Расчет платежей"];
-
-    // Автоматически подстраиваем ширину колонок под содержимое
     const wscols = [];
     const range = XLSX.utils.decode_range(sheet['!ref']);
     
@@ -319,33 +304,28 @@ function exportToExcel() {
                 maxLength = Math.max(maxLength, cellValue.length); // Считаем максимальную длину содержимого
             }
         }
-        wscols.push({wch: maxLength}); // Устанавливаем ширину колонки
+        wscols.push({wch: maxLength});
     }
     sheet['!cols'] = wscols;
-
-    // Проходим по каждой ячейке и применяем выравнивание по центру и формат как текст
     for (let R = range.s.r; R <= range.e.r; ++R) {
         for (let C = range.s.c; C <= range.e.c; ++C) {
             const cell_address = XLSX.utils.encode_cell({r: R, c: C});
             const cell = sheet[cell_address];
 
             if (cell) {
-                // Устанавливаем выравнивание по центру для каждой ячейки
                 if (!cell.s) cell.s = {};
                 cell.s.alignment = { horizontal: "center", vertical: "center" };
-                cell.s.numFmt = "@"; // Принудительно задаем формат как текст
+                cell.s.numFmt = "@";
             }
         }
     }
-
-    // Экспортируем книгу в файл Excel
     XLSX.writeFile(workbook, 'Расчет_платежей.xlsx');
 }
 
 
 function getNextDate(monthOffset) {
     const today = new Date();
-    today.setMonth(today.getMonth() + monthOffset - 1); // Устанавливаем следующий месяц с учетом смещения
+    today.setMonth(today.getMonth() + monthOffset - 1);
     const month = today.toLocaleString('ru-RU', { month: 'long' });
     const year = today.getFullYear();
     return `${month} ${year}`;
