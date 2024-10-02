@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: white; /* Белый фон как запасной */
+    background-size: cover; /* Обеспечивает покрытие всего контейнера */
+    background-position: center; /* Центрирует изображение */
+    background-repeat: no-repeat; /* Не повторяет изображение */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    max-width: 1000px; /* Увеличиваем ширину контейнера */
+    width: 100%; /* Заполняем 100% доступного пространства */
+    margin: 0 auto; /* Центрируем контейнер */
+    position: relative; /* Для правильного позиционирования логотипа */
+}
+.logo {
+    position: absolute; /* Позволяет позиционировать элемент относительно родителя */
+    top: 10px; /* Отступ сверху */
+    right: 10px; /* Отступ справа */
+    width: 250px; /* Ширина логотипа */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    z-index: 10; /* Обеспечивает, что логотип будет над другими элементами */
+}
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-top: 10px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+#chartContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#summary {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#loanDuration {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#summaryContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+#tableContainer {
+    max-height: 400px; /* Ограничиваем высоту таблицы */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
